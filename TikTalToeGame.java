@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class TikTalToeGame 
@@ -14,11 +13,27 @@ public class TikTalToeGame
 			}
 			return board;
 		}
+		
 		private static char choose(Scanner userInput)
 		{ 
 			System.out.println("enter the user choice letter X or O");
 			return userInput.next().toUpperCase().charAt(0);
 		}   
+		 
+		public static void showBoard(char[] board)
+		{
+			System.out.println("-+-+-");
+			System.out.println(board[1] + "|" +  board[2] + "|" +  board[3]  );
+			System.out.println("-+-+-");
+			System.out.println(board[4] + "|" +  board[5] + "|" +  	board[6]  );
+			System.out.println("-+-+-");
+			System.out.println(board[7] + "|" +  board[8] + "|" +  board[9]  );
+			System.out.println("-+-+-");
+
+		}
+		
+		
+		
 		public static void main(String[] args) {
 		TikTalToeGame  game=new TikTalToeGame();
 		System.out.println(game.creatingBoard());
@@ -43,6 +58,19 @@ public class TikTalToeGame
 		{
 			System.out.println("Invalid input plaese give input either O or X");
 		}
-	}
+		if( userLetter== 'X' ||  userLetter== 'Y')
+		{
+		 game.showBoard(game.creatingBoard());
+		
+		}
+		else
+		{
+		 System.out.println("cant print table");
+		}
+			 
+		
+	 }
+	
 }
+
 
