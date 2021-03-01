@@ -13,18 +13,18 @@ public class TikTalToeGame
 		}
 		return board;
 	}
-	
+
 	public static int toss()
 	{ 
-	 System.out.println("lets choose who needs to start the game");
-	 int coinToss = (int) Math.floor(Math.random() * 10) % 2+ 1;
-	 System.out.println("Coin toss "+coinToss);
-	 return coinToss;
+		System.out.println("lets choose who needs to start the game");
+		int coinToss = (int) Math.floor(Math.random() * 10) % 2+ 1;
+		System.out.println("Coin toss "+coinToss);
+		return coinToss;
 	}
 
 
 	private static void playerTurn(char[] board, Scanner scanner) {
-		String userInput1;  
+		String userInput1;   
 		while (true) {
 			System.out.println("its your turn where do you like to move(1-9)");
 			userInput1 = scanner.nextLine();
@@ -33,7 +33,7 @@ public class TikTalToeGame
 			} else {
 				System.out.println(userInput1 + " is not a valid move."); 
 			}
-		} 
+		}  
 		char userLetter='X';
 		freeSpace(board, userInput1, userLetter); 
 	}
@@ -78,7 +78,7 @@ public class TikTalToeGame
 		case "1":
 			return (board[1] == ' ');
 		case "2":
-			return (board[2] == ' ');
+			return (board[2] == ' '); 
 		case "3":
 			return (board[3] == ' ');
 		case "4":
@@ -97,15 +97,56 @@ public class TikTalToeGame
 			return false;
 		}
 	}
-	
+	private static boolean result(char[] board) {
+
+		if (winningChance(board, 'X')) {	
+			showBoard(board);
+			System.out.println("Player wins!");
+			return true;
+		}
+		else if (winningChance(board, 'O')) {	
+			showBoard(board);
+			System.out.println("Computer wins!");
+			return true;
+		}
+		else 
+			
+		for (int i = 1; i < 10; i++) {
+				if (board[i]== ' ') {
+					return false;
+				}
+			}
+		showBoard(board);
+		System.out.println("The game ended in a tie!");
+		return true;
+	}
+
+	private static boolean winningChance(char[] board, char symbol) {
+		if ((board[1] == symbol && board [2] == symbol && board[3] == symbol) ||
+				(board[4] == symbol && board [5] == symbol && board [6] == symbol) ||
+				(board[7] == symbol && board [8] == symbol && board [9] == symbol) ||
+
+				(board[1] == symbol && board [4] == symbol && board [7] == symbol) ||
+				(board[2] == symbol && board [5] == symbol && board [8] == symbol) ||
+				(board[3] == symbol && board [6] == symbol && board [9] == symbol) || 
+
+				(board[1] == symbol && board [5] == symbol && board [9]== symbol) || 
+				(board[3] == symbol && board [5] == symbol && board [7] == symbol) ) {
+			return true;
+		}
+		return false;
+	}
+
 	private static void computerTurn(char[] board) {
-	
+		System.out.println("Computer turn");
+		
+
 	}
 
 
 	public static void showBoard(char[] board)
 	{
-		System.out.println("-+-+-");
+		System.out.println("-+-+-"); 
 		System.out.println(board[1] + "|" +  board[2] + "|" +  board[3]  );
 		System.out.println("-+-+-");
 		System.out.println(board[4] + "|" +  board[5] + "|" +  board[6]  );
@@ -149,11 +190,14 @@ public class TikTalToeGame
 		}
 		if(toss() == 1)
 		{
+			
 			playerTurn(game.creatingBoard(),input1); 
-		}
+		        System.out.println(result(game.creatingBoard()));
+			showBoard(game.creatingBoard());
+		} 
 		else
 			computerTurn(game.creatingBoard());
-		
+
 
 	}
 
