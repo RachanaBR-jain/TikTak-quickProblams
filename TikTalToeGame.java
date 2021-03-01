@@ -13,9 +13,18 @@ public class TikTalToeGame
 		}
 		return board;
 	}
+	
+	public static int toss()
+	{ 
+	 System.out.println("lets choose who needs to start the game");
+	 int coinToss = (int) Math.floor(Math.random() * 10) % 2+ 1;
+	 System.out.println("Coin toss "+coinToss);
+	 return coinToss;
+	}
+
 
 	private static void playerTurn(char[] board, Scanner scanner) {
-		String userInput1; 
+		String userInput1;  
 		while (true) {
 			System.out.println("its your turn where do you like to move(1-9)");
 			userInput1 = scanner.nextLine();
@@ -49,7 +58,7 @@ public class TikTalToeGame
 		case "6":
 			board[6] = userLetter;
 			break;
-		case "7":
+		case "7": 
 			board[7] = userLetter;
 			break;
 		case "8":
@@ -88,6 +97,12 @@ public class TikTalToeGame
 			return false;
 		}
 	}
+	
+	private static void computerTurn(char[] board) {
+	
+	}
+
+
 	public static void showBoard(char[] board)
 	{
 		System.out.println("-+-+-");
@@ -106,20 +121,21 @@ public class TikTalToeGame
 	}   
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		TikTalToeGame  game=new TikTalToeGame(); 
 		System.out.println(game.creatingBoard());
-		game.showBoard(game.creatingBoard());
-		char userLetter=choose(userInput);
+		showBoard(game.creatingBoard());
+		Scanner input1=new Scanner(System.in);
 		char computerLetter;
-		//computerLatter=(userLetter =='X') ? 'O' : 'X';
+		//computerLatter=(userLetter =='X') ? 'O' : 'X'; 
+		char userLetter=choose(userInput);
 		if(userLetter=='X')
 		{
 			computerLetter='O';
 		} 
 		else if(userLetter=='O')
 		{
-			computerLetter='X';  
+			computerLetter='X';   
 		}
 		else 
 		{
@@ -131,10 +147,13 @@ public class TikTalToeGame
 			System.out.println("Invalid input plaese give input either O or X");
 			choose(userInput);
 		}
-		Scanner input1=new Scanner(System.in);
-		game.playerTurn(game.creatingBoard(),input1);
-
-
+		if(toss() == 1)
+		{
+			playerTurn(game.creatingBoard(),input1); 
+		}
+		else
+			computerTurn(game.creatingBoard());
+		
 
 	}
 
