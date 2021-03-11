@@ -5,11 +5,12 @@ public class TikTalToeGame
 	static char userLetter,computerLetter;
 	static char[] playerOrder=new char[2];
 	static char[] board;
+	private static char symbol;
 
 	public char[] creatingBoard()
 	{
 		char[] board= new char[10];
-		for (int  i=1;i<10;i++)
+		for (int  i=1;i<10;i++) 
 		{ 
 			{ 
 				board[i]=' '; 
@@ -40,8 +41,6 @@ public class TikTalToeGame
 	}   
 
 
-
-
 	public static void showBoard(char[] board)
 	{ 
 		System.out.println("-+-+-");  
@@ -57,11 +56,8 @@ public class TikTalToeGame
 	public static void play(char symbol){
 		int pos;
 		if(symbol == computerLetter){
-			pos= (int) (Math.floor(Math.random() * 9) % 9 + 1);
-			while(board[pos] != ' '){
-				pos= (int) (Math.floor(Math.random() * 9) % 9 + 1);
-			}
-			board[pos] = computerLetter;
+			pos=smartChoice();
+			board[pos]=computerLetter;
 		} else {
 			System.out.println("Enter Position ");
 			pos = userInput.nextInt();
@@ -70,9 +66,93 @@ public class TikTalToeGame
 				System.out.println("Enter Position");
 				pos = userInput.nextInt();
 			}  
-			board[pos] = computerLetter;
+			board[pos] = userLetter;
 		} 
 	}
+
+
+	public static boolean isGameOver() { 
+		if ((board[1] ==  board [2] && board[1] == board[3] && board[1] != ' ') ||
+			(board[1] == board[4] && board[1] == board [7] && board[1] != ' ') ||  
+			(board[1] == board[5] && board[1] == board [9] && board[1] != ' ') ||
+			
+			(board[2] == board[5] &&  board[2]== board [8] && board[2] != ' ' ) ||
+			(board[2] == board[1] &&  board[2]== board [3] && board[2] != ' ') ||
+			
+			(board[3] == board[1] &&  board[3]== board [2] && board[3] != ' ' ) ||
+			(board[3] == board[6] &&  board[3]== board [9] && board[3] != ' ' ) ||
+			(board[3] == board[6] &&  board[3]== board [9] && board[3] != ' ') ||
+			
+			(board[4] == board[1] &&  board[4]== board [7] && board[4] != ' ') ||
+			(board[4] == board[5] &&  board[4]== board [6] && board[4] != ' ' ) ||
+			
+			(board[5] == board[2] &&  board[5]== board [8] && board[5] != ' ' ) ||
+			(board[5] == board[4] &&  board[5]== board [6] && board[5] != ' ' ) ||
+			
+			(board[6] == board[4] &&  board[6]== board [5] && board[6] != ' ' ) ||
+			(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
+			
+			(board[7] == board[1] &&  board[7]== board [4] && board[7] != ' ' ) ||
+			(board[7] == board[3] &&  board[7]== board [5] && board[7] != ' ' ) ||
+			(board[7] == board[8] &&  board[7]== board [9] && board[7] != ' ' ) ||
+			
+			(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
+			(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
+
+			(board[8] == board[7] &&  board[8]== board [9] && board[8] != ' ' ) ||
+			(board[8] == board[2] &&  board[8]== board [5] && board[8] != ' ' ) ||
+			 
+			(board[9] == board[3] &&  board[9]== board [6] && board[9] != ' ' ) ||
+			(board[9] == board[1] &&  board[9]== board [5] && board[9] != ' ' ) ||
+			(board[9] == board[7] &&  board[9]== board [8] && board[9] != ' ' ))
+
+		{
+	
+			return true;
+		}
+		return false;
+	} 
+
+	public static void winner(char symbol) { 
+		if (symbol == userLetter) {
+			System.out.println("Player Won!!"); 
+		} else if (symbol == computerLetter) 
+			System.out.println("Computer Won!!");
+		else
+		
+			for (int i = 1; i < 10; i++) {
+				if (board[i]== ' ') 
+					System.out.println("The game ended in a tie!"); 
+			}
+		
+	}
+
+    public static int smartChoice(){
+        boolean hasWon = false;
+        for(int i=1; i<10; i++){
+            if(board[i] == ' '){
+                board[i] = computerLetter;
+                hasWon = isGameOver();
+                board[i] = ' ';
+                if(hasWon) 
+                    return i;
+            }
+        } 
+        for(int i=1; i<10; i++){
+            if(board[i] == ' '){
+                board[i] = userLetter;
+                hasWon = isGameOver();
+                board[i] = ' ';
+                if(hasWon)
+                    return i;
+            }
+        }
+        int index = (int) (Math.floor(Math.random() * 9) % 9 + 1);
+        while (board[index] != ' ') {
+            index = (int) (Math.floor(Math.random() * 9) % 9 + 1);
+        }
+        return index;
+    }
 
 
 	public static void toss()
@@ -82,65 +162,49 @@ public class TikTalToeGame
 		System.out.println("Coin toss "+coinToss);
 		if(coinToss==1)
 		{
-			System.out.println("Player plays First");	 
+			System.out.println("Player plays First");
+			playerOrder[0] = userLetter;
+            playerOrder[1] = computerLetter;
 		}
 		else
 		{
-			System.out.println("Computer plays First");	
+			System.out.println("Computer plays First");
+			playerOrder[0] = computerLetter;
+            playerOrder[1] = userLetter;
+			
 		}
 	} 
-	public static boolean isGameOver(char symbol) { 
-		if ((board[1] == symbol && board [2] == symbol && board[3] == symbol) ||
-				(board[4] == symbol && board [5] == symbol && board [6] == symbol) ||
-				(board[7] == symbol && board [8] == symbol && board [9] == symbol) ||
-
-				(board[1] == symbol && board [4] == symbol && board [7] == symbol) ||
-				(board[2] == symbol && board [5] == symbol && board [8] == symbol) ||
-				(board[3] == symbol && board [6] == symbol && board [9] == symbol) || 
-
-				(board[1] == symbol && board [5] == symbol && board [9]== symbol) || 
-				(board[3] == symbol && board [5] == symbol && board [7] == symbol) ) {
-
-			return true;
-		}
-		return false;
-	} 
-
-	public static void winner(char symbol) {
-		if (symbol == userLetter) {
-			System.out.println("Plar Won!!"); 
-		} else if (symbol == computerLetter)
-			System.out.println("Computer Won!!");
-		else
-		{
-			for (int i = 1; i < 10; i++) {
-				if (board[i]== ' ') 
-					System.out.println("The game ended in a tie!"); 
-			}
-		}
-	}
-
-
 	public void gameOver()
 	{
 		boolean isOver=false;
-		for (int i = 1; i <= 9; i++) {  
-			showBoard(board);
+		for (int i = 1; i <= 4; i++) {  
 			play(playerOrder[0]);
-			isOver = isGameOver(computerLetter);
+			showBoard(board);
+			isOver = isGameOver();
 			if (isOver) {
 				System.out.println("Game Over"); 
-				winner(computerLetter);
+				winner(playerOrder[0]);
 				break;
 			} 
-			showBoard(board); 
+			
 			play(playerOrder[1]);
-			isOver = isGameOver(userLetter);
+			showBoard(board);
+			isOver = isGameOver();
 			if (isOver) {
 				System.out.println("Game Over");
-				winner(userLetter);
+				winner(playerOrder[1]);
 				break; 
 			}
+
+	        if (!isOver) {
+	            play(playerOrder[0]);
+	            showBoard(board);
+	            isOver = isGameOver();
+	            if (isOver) {
+	                System.out.println("Game Over..!!");
+	                winner(playerOrder[0]);
+	            }
+	        }
 		}
 
 	}
@@ -150,7 +214,7 @@ public class TikTalToeGame
 		board = tictacto.creatingBoard();
 		showBoard(board);
 		chooseLetter(); 
-		toss();
+		toss(); 
 		tictacto.gameOver();
 	}
 }
