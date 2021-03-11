@@ -1,4 +1,3 @@
-
 import java.util.*;
 public class TikTalToeGame 
 {
@@ -121,22 +120,15 @@ public class TikTalToeGame
 			System.out.println("Computer Won!!");
 		}
 		else
-
 		{
-			for (int i = 0; i < board.length; i++) {
-				if (board[i] == ' ')
-				{
-					System.out.println("The game ended in a tie!"); 
-					showBoard(board);
-					break;
-				}
-
-			}
-
+			System.out.println("The game ended in a tie!"); 
+			showBoard(board);
 		}
+
 	}
+
 	public static int smartMove(){
-		boolean hasWon = false;
+		boolean hasWon = false; 
 		for(int i=1; i<10; i++){
 			if(board[i] == ' '){
 				board[i] = computerLetter;
@@ -166,6 +158,9 @@ public class TikTalToeGame
 		}
 		if(board[9] == ' '){
 			return 9;
+		}
+		if(board[5] == ' '){
+			return 5;
 		}
 
 		int index = (int) (Math.floor(Math.random() * 9) % 9 + 1);
