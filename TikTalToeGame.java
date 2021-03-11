@@ -1,3 +1,4 @@
+
 import java.util.*;
 public class TikTalToeGame 
 {
@@ -5,7 +6,6 @@ public class TikTalToeGame
 	static char userLetter,computerLetter;
 	static char[] playerOrder=new char[2];
 	static char[] board;
-	private static char symbol;
 
 	public char[] creatingBoard()
 	{
@@ -56,7 +56,7 @@ public class TikTalToeGame
 	public static void play(char symbol){
 		int pos;
 		if(symbol == computerLetter){
-			pos=smartChoice();
+			pos=smartMove();
 			board[pos]=computerLetter;
 		} else {
 			System.out.println("Enter Position ");
@@ -73,41 +73,41 @@ public class TikTalToeGame
 
 	public static boolean isGameOver() { 
 		if ((board[1] ==  board [2] && board[1] == board[3] && board[1] != ' ') ||
-			(board[1] == board[4] && board[1] == board [7] && board[1] != ' ') ||  
-			(board[1] == board[5] && board[1] == board [9] && board[1] != ' ') ||
-			
-			(board[2] == board[5] &&  board[2]== board [8] && board[2] != ' ' ) ||
-			(board[2] == board[1] &&  board[2]== board [3] && board[2] != ' ') ||
-			
-			(board[3] == board[1] &&  board[3]== board [2] && board[3] != ' ' ) ||
-			(board[3] == board[6] &&  board[3]== board [9] && board[3] != ' ' ) ||
-			(board[3] == board[6] &&  board[3]== board [9] && board[3] != ' ') ||
-			
-			(board[4] == board[1] &&  board[4]== board [7] && board[4] != ' ') ||
-			(board[4] == board[5] &&  board[4]== board [6] && board[4] != ' ' ) ||
-			
-			(board[5] == board[2] &&  board[5]== board [8] && board[5] != ' ' ) ||
-			(board[5] == board[4] &&  board[5]== board [6] && board[5] != ' ' ) ||
-			
-			(board[6] == board[4] &&  board[6]== board [5] && board[6] != ' ' ) ||
-			(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
-			
-			(board[7] == board[1] &&  board[7]== board [4] && board[7] != ' ' ) ||
-			(board[7] == board[3] &&  board[7]== board [5] && board[7] != ' ' ) ||
-			(board[7] == board[8] &&  board[7]== board [9] && board[7] != ' ' ) ||
-			
-			(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
-			(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
+				(board[1] == board[4] && board[1] == board [7] && board[1] != ' ') ||  
+				(board[1] == board[5] && board[1] == board [9] && board[1] != ' ') ||
 
-			(board[8] == board[7] &&  board[8]== board [9] && board[8] != ' ' ) ||
-			(board[8] == board[2] &&  board[8]== board [5] && board[8] != ' ' ) ||
-			 
-			(board[9] == board[3] &&  board[9]== board [6] && board[9] != ' ' ) ||
-			(board[9] == board[1] &&  board[9]== board [5] && board[9] != ' ' ) ||
-			(board[9] == board[7] &&  board[9]== board [8] && board[9] != ' ' ))
+				(board[2] == board[5] &&  board[2]== board [8] && board[2] != ' ' ) ||
+				(board[2] == board[1] &&  board[2]== board [3] && board[2] != ' ') ||
+
+				(board[3] == board[1] &&  board[3]== board [2] && board[3] != ' ' ) ||
+				(board[3] == board[6] &&  board[3]== board [9] && board[3] != ' ' ) ||
+				(board[3] == board[6] &&  board[3]== board [9] && board[3] != ' ') ||
+
+				(board[4] == board[1] &&  board[4]== board [7] && board[4] != ' ') ||
+				(board[4] == board[5] &&  board[4]== board [6] && board[4] != ' ' ) ||
+
+				(board[5] == board[2] &&  board[5]== board [8] && board[5] != ' ' ) ||
+				(board[5] == board[4] &&  board[5]== board [6] && board[5] != ' ' ) ||
+
+				(board[6] == board[4] &&  board[6]== board [5] && board[6] != ' ' ) ||
+				(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
+
+				(board[7] == board[1] &&  board[7]== board [4] && board[7] != ' ' ) ||
+				(board[7] == board[3] &&  board[7]== board [5] && board[7] != ' ' ) ||
+				(board[7] == board[8] &&  board[7]== board [9] && board[7] != ' ' ) ||
+
+				(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
+				(board[6] == board[3] &&  board[6]== board [9] && board[6] != ' ' ) ||
+
+				(board[8] == board[7] &&  board[8]== board [9] && board[8] != ' ' ) ||
+				(board[8] == board[2] &&  board[8]== board [5] && board[8] != ' ' ) ||
+
+				(board[9] == board[3] &&  board[9]== board [6] && board[9] != ' ' ) ||
+				(board[9] == board[1] &&  board[9]== board [5] && board[9] != ' ' ) ||
+				(board[9] == board[7] &&  board[9]== board [8] && board[9] != ' ' ))
 
 		{
-	
+
 			return true;
 		}
 		return false;
@@ -117,42 +117,63 @@ public class TikTalToeGame
 		if (symbol == userLetter) {
 			System.out.println("Player Won!!"); 
 		} else if (symbol == computerLetter) 
+		{
 			System.out.println("Computer Won!!");
+		}
 		else
-		
-			for (int i = 1; i < 10; i++) {
-				if (board[i]== ' ') 
-					System.out.println("The game ended in a tie!"); 
-			}
-		
-	}
 
-    public static int smartChoice(){
-        boolean hasWon = false;
-        for(int i=1; i<10; i++){
-            if(board[i] == ' '){
-                board[i] = computerLetter;
-                hasWon = isGameOver();
-                board[i] = ' ';
-                if(hasWon) 
-                    return i;
-            }
-        } 
-        for(int i=1; i<10; i++){
-            if(board[i] == ' '){
-                board[i] = userLetter;
-                hasWon = isGameOver();
-                board[i] = ' ';
-                if(hasWon)
-                    return i;
-            }
-        }
-        int index = (int) (Math.floor(Math.random() * 9) % 9 + 1);
-        while (board[index] != ' ') {
-            index = (int) (Math.floor(Math.random() * 9) % 9 + 1);
-        }
-        return index;
-    }
+		{
+			for (int i = 0; i < board.length; i++) {
+				if (board[i] == ' ')
+				{
+					System.out.println("The game ended in a tie!"); 
+					showBoard(board);
+					break;
+				}
+
+			}
+
+		}
+	}
+	public static int smartMove(){
+		boolean hasWon = false;
+		for(int i=1; i<10; i++){
+			if(board[i] == ' '){
+				board[i] = computerLetter;
+				hasWon = isGameOver();
+				board[i] = ' ';
+				if(hasWon) 
+					return i;
+			}
+		} 
+		for(int i=1; i<10; i++){
+			if(board[i] == ' '){
+				board[i] = userLetter;
+				hasWon = isGameOver();
+				board[i] = ' ';
+				if(hasWon)
+					return i;
+			}
+		}
+		if(board[1] == ' '){
+			return 1;
+		}
+		if(board[3] == ' '){
+			return 3;
+		}
+		if(board[7] == ' '){
+			return 7;
+		}
+		if(board[9] == ' '){
+			return 9;
+		}
+
+		int index = (int) (Math.floor(Math.random() * 9) % 9 + 1);
+		while (board[index] != ' ') {
+			index = (int) (Math.floor(Math.random() * 9) % 9 + 1);
+		}
+		return index;
+	}
 
 
 	public static void toss()
@@ -164,51 +185,41 @@ public class TikTalToeGame
 		{
 			System.out.println("Player plays First");
 			playerOrder[0] = userLetter;
-            playerOrder[1] = computerLetter;
+			playerOrder[1] = computerLetter;
 		}
 		else
 		{
-			System.out.println("Computer plays First");
+			System.out.println("Computer plays First"); 
 			playerOrder[0] = computerLetter;
-            playerOrder[1] = userLetter;
-			
+			playerOrder[1] = userLetter;
+
 		}
 	} 
 	public void gameOver()
 	{
-		boolean isOver=false;
-		for (int i = 1; i <= 4; i++) {  
+		boolean play=false;
+		for (int i = 1; i <= 9; i++) {  
 			play(playerOrder[0]);
 			showBoard(board);
-			isOver = isGameOver();
-			if (isOver) {
+			play = isGameOver();
+			if (play) {
 				System.out.println("Game Over"); 
 				winner(playerOrder[0]);
 				break;
 			} 
-			
+
 			play(playerOrder[1]);
 			showBoard(board);
-			isOver = isGameOver();
-			if (isOver) {
+			play = isGameOver();
+			if (play) {
 				System.out.println("Game Over");
 				winner(playerOrder[1]);
 				break; 
 			}
-
-	        if (!isOver) {
-	            play(playerOrder[0]);
-	            showBoard(board);
-	            isOver = isGameOver();
-	            if (isOver) {
-	                System.out.println("Game Over..!!");
-	                winner(playerOrder[0]);
-	            }
-	        }
 		}
 
 	}
- 
+
 	public static void main(String[] args) {  
 		TikTalToeGame tictacto = new TikTalToeGame();
 		board = tictacto.creatingBoard();
