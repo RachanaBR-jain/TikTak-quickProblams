@@ -5,6 +5,7 @@ public class TikTalToeGame
 	static char userLetter,computerLetter;
 	static char[] playerOrder=new char[2];
 	static char[] board;
+	static TikTalToeGame tictac = new TikTalToeGame();
 
 	public char[] creatingBoard()
 	{
@@ -190,7 +191,7 @@ public class TikTalToeGame
 
 		}
 	} 
-	public void gameOver()
+	public static void gameOver()
 	{
 		boolean play=false;
 		for (int i = 1; i <= 9; i++) {  
@@ -211,18 +212,39 @@ public class TikTalToeGame
 				winner(playerOrder[1]);
 				break; 
 			}
+			
 		}
 
 	}
+	
+	public static void continueGame() {
+		System.out.println("Would you like to continue pay another match of Ticktok press[1/0]?");
+        int choose = userInput.nextInt();
+		switch(choose)
+        {
+        case 1: tictac.creatingBoard();
+        		showBoard(board);
+        		chooseLetter();
+        		toss(); 
+        		gameOver();
+        		break; 
+        case 2: System.out.println("Thankyou...");
+        		break;
+        default: System.out.println("Invalid choose, Please select 1-continue or 2-exit");
+        }
+	}
+	
 
 	public static void main(String[] args) {  
 		TikTalToeGame tictacto = new TikTalToeGame();
 		board = tictacto.creatingBoard();
 		showBoard(board);
-		chooseLetter(); 
+		chooseLetter();  
 		toss(); 
-		tictacto.gameOver();
+		gameOver();
+		continueGame(); 
 	}
+	
 }
 
 
